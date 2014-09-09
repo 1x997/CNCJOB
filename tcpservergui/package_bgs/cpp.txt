@@ -1,0 +1,8 @@
+AdaptiveBackgroundLearning.cpp
+FrameDifferenceBGS.cpp
+GMG.cpp
+MixtureOfGaussianV1BGS.cpp
+MixtureOfGaussianV2BGS.cpp
+StaticFrameDifferenceBGS.cpp
+WeightedMovingMeanBGS.cpp
+WeightedMovingVarianceBGS.cpp
