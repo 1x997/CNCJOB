@@ -214,6 +214,11 @@ void Dialog::init(){
     bgs = new MixtureOfGaussianV2BGS;
    // connect(this,SIGNAL(getlocalFrameSignal()),this,SLOT(getlocalFrame()));
 
+    ui->label->setText("");
+    ui->label_3->setText("");
+    ui->label_7->setText("");
+    ui->label_car->setText("");
+
 }
 
 void Dialog::update_mhi(IplImage *img, IplImage *dst)

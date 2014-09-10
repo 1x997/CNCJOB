@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/imgs">
-        <file>img/tinyproxy.jpg</file>
+        <file>rc/images/nosignal.jpg</file>
     </qresource>
 </RCC>
