@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="labelrecv">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>服务器端实时画面</string>
+    <string>接收到的实时画面</string>
    </property>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
@@ -157,11 +157,11 @@
    <property name="tabsClosable">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="tab_1">
+   <widget class="QWidget" name="tabmult">
     <attribute name="title">
      <string>多目标</string>
     </attribute>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="labelmult">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -181,11 +181,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_2">
+   <widget class="QWidget" name="tabperson">
     <attribute name="title">
      <string>行人分析区</string>
     </attribute>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="labelperson">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -205,11 +205,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_4">
+   <widget class="QWidget" name="tabcar">
     <attribute name="title">
      <string>车辆检测</string>
     </attribute>
-    <widget class="QLabel" name="label_car">
+    <widget class="QLabel" name="labelcar">
      <property name="geometry">
       <rect>
        <x>0</x>

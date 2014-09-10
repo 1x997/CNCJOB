@@ -39,17 +39,17 @@ void Dialog::getFrame(){
         showimg.copyTo(peopletestimage);
        //server->img.copyTo(showimg);
        //imshow("recv",showimg);
-        setlablepic(ui->label,showimg);
+        setlablepic(ui->labelrecv,showimg);
        //如果设置了行人检测，同时不是很忙时候,就开始HOG检测
             if(!server->busy){
             server->busy=true;
             if(multiflag){
                     Mat showmulti = multitrack(peopletestimage);
-                    setlablepic(ui->label_7,showmulti);
+                    setlablepic(ui->labelmult,showmulti);
             }
             if(hogflag){
                 Mat peopleimage=hogpeople(showimg);
-                setlablepic(ui->label_3,peopleimage);
+                setlablepic(ui->labelperson,peopleimage);
                     if(havepeople){
                        ui->label_6->setText("检测结果：有人");
                     }else{
@@ -128,7 +128,7 @@ void Dialog::getlocalFrame()
         cv::Point textOrg(0, 50);
         cv::putText(img_input, text.toStdString().c_str(), textOrg, fontFace, fontScale, Scalar(255,0,0,0), thickness,8);
 
-        setlablepic(ui->label_car,img_input);
+        setlablepic(ui->labelcar,img_input);
         waitKey(10);
         carframe++;
 
@@ -214,10 +214,10 @@ void Dialog::init(){
     bgs = new MixtureOfGaussianV2BGS;
    // connect(this,SIGNAL(getlocalFrameSignal()),this,SLOT(getlocalFrame()));
 
-    ui->label->setText("");
-    ui->label_3->setText("");
-    ui->label_7->setText("");
-    ui->label_car->setText("");
+    ui->labelrecv->setText("");
+    ui->labelmult->setText("");
+    ui->labelcar->setText("");
+    ui->labelperson->setText("");
 
 }
 
@@ -332,7 +332,7 @@ void Dialog::on_pushButton_4_clicked()//统计车辆开始
                imagelist<<(dir+'/'+line);
                 //imagelist.push_back(line);
               // Mat image =imread((dir+'/'+line).toStdString().c_str());
-              // setlablepic(ui->label_car,image);
+              // setlablepic(ui->labelcar,image);
               //emit getlocalFrameSignal();
 
 //              imshow("car",image);
