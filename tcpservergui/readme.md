@@ -1,0 +1,1 @@
+# client part sent image (get by opencv camera function) to  server (process like hog )
