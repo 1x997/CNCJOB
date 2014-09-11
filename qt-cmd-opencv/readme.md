@@ -1,1 +1,1 @@
-#qtcreator的opencv模板
+#qtcreator opencv 命令行模板
