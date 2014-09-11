@@ -1,5 +1,5 @@
-#Ê¹ÓÃ·½·¨
-asio.exe Ä¿±êIPµØÖ·
-#Æ½Ì¨x86 vs2012 boost¿â opencv2.8
+#ä½¿ç”¨æ–¹æ³•
+asio.exe ç›®æ ‡IPåœ°å€
+#å¹³å°x86 vs2012 booståº“ opencv2.8
 
-`pre-complier`ÊÇÔ¤±àÒëºÃµÄ¿ÉÖ´ĞĞÎÄ¼ş
+`pre-complier`æ˜¯é¢„ç¼–è¯‘å¥½çš„å¯æ‰§è¡Œæ–‡ä»¶

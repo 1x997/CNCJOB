@@ -1,1 +1,1 @@
-#qtcreatorµÄopencvÄ£°å
+#qtcreatorçš„opencvæ¨¡æ¿
