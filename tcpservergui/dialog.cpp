@@ -4,6 +4,7 @@
 #include <opencv/highgui.h>
 #include <QDebug>
 #include <QThread>
+#include <QDir>
 
 using namespace cv;
 using namespace std;
@@ -218,6 +219,15 @@ void Dialog::init(){
     ui->labelmult->setText("");
     ui->labelcar->setText("");
     ui->labelperson->setText("");
+
+    //mkdir config   QDir::mkdir
+    QDir dir("config");
+    if (!dir.exists()){
+        qWarning("Cannot find the config directory");
+        dir.mkdir(".");
+
+    }
+
 
 }
 
