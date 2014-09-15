@@ -20,27 +20,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton {
-	color: rgb(255, 255, 255);
-background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #88d, stop: 0.1 #99e, stop: 0.49 #77c, stop: 0.5 #66b, stop: 1 #77c);
-border-width: 1px;
-border-color: #339;
-border-style: solid;
-border-radius: 5;
-padding: 3px;
-font-size: 12px;
-padding-left: 5px;
-padding-right: 5px;
-min-width: 100px;
-max-width: 100px;
-min-height: 30px;
-max-height: 30px;
-}
-
-QLabel{
-border-radius: 5;
-font: 75 10pt &quot;微软雅黑&quot;;
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QLabel" name="labelrecv">
    <property name="geometry">
@@ -102,7 +82,7 @@ font: 75 10pt &quot;微软雅黑&quot;;
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <property name="elideMode">
     <enum>Qt::ElideNone</enum>
@@ -202,12 +182,12 @@ font: 75 10pt &quot;微软雅黑&quot;;
     <string notr="true">border-radius: 5;</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>280</y>
-     <width>351</width>
+     <width>352</width>
      <height>181</height>
     </rect>
    </property>
@@ -281,12 +261,12 @@ font: 75 10pt &quot;微软雅黑&quot;;
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>440</x>
      <y>310</y>
-     <width>91</width>
+     <width>121</width>
      <height>46</height>
     </rect>
    </property>
@@ -300,8 +280,7 @@ font: 75 10pt &quot;微软雅黑&quot;;
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>行人分析结果：</string>
@@ -317,23 +296,6 @@ font: 75 10pt &quot;微软雅黑&quot;;
     </item>
    </layout>
   </widget>
-  <zorder>labelrecv</zorder>
-  <zorder>label_4</zorder>
-  <zorder>tabWidget</zorder>
-  <zorder>label_6</zorder>
-  <zorder>comboBox</zorder>
-  <zorder>label</zorder>
-  <zorder>pushButton_3</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>pushButton_2</zorder>
-  <zorder>setimagedir</zorder>
-  <zorder>pushButton_4</zorder>
-  <zorder>setdatalist</zorder>
-  <zorder></zorder>
-  <zorder></zorder>
-  <zorder>pushButton_4</zorder>
-  <zorder>horizontalSpacer</zorder>
-  <zorder>label</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
