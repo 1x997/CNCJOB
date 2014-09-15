@@ -34,7 +34,6 @@ void MyTcpServer::readyRead()
 {
 
   //  qDebug() << "readyRead...";
-
   //  qDebug() << socket->bytesAvailable();
 
     qint64 blockSize = 230400; //320*240*3
@@ -55,8 +54,6 @@ void MyTcpServer::readyRead()
 //    std::vector<uchar> vectordata(b1.begin(),b1.end());
 //    cv::Mat data_mat(vectordata,true);
 //    img= data_mat.reshape(3,240);       /* reshape to 3 channel and 240 rows */
-
-
 //    imshow("recv",img);
 //    waitKey(10);
 }

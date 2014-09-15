@@ -58,7 +58,7 @@ void Dialog::getFrame(){
                     }
             }
             server->busy=false;//解除忙状态，这样，客户端发来的图像就不会通过read掉而不保存
-            //use for 多线程
+//            use for 多线程
 //            QThread* thread = new QThread;
 //            worker = new processhogwork(showimg);
 //            worker->moveToThread(thread);
@@ -84,7 +84,7 @@ void Dialog::getlocalFrame()
          imagename = imagelist.at(carframe);
     }
         Mat img_input =imread(imagename.toStdString().c_str());
-//       qDebug()<<imagename.toStdString().c_str();
+//      qDebug()<<imagename.toStdString().c_str();
         rectangle(img_input, Point( 0, 120 ), Point( 320, 170),Scalar( 0, 255, 255 ), 1, 8, 0);
         cv::Mat img_mask;
         cv::Mat img_bkgmodel;
@@ -194,7 +194,7 @@ void Dialog::init(){
     setWindowTitle("服务器端");
     server = new MyTcpServer();
 
-    //hog peoplr init
+    //hog 行人检测 init
     hogflag=false;
     havepeople=false;
 
@@ -220,7 +220,7 @@ void Dialog::init(){
     ui->labelcar->setText("");
     ui->labelperson->setText("");
 
-    //mkdir config   QDir::mkdir
+    //mkdir config   QDir::mkdir  如果配置文件目录不存在，则先创建配置文件目录
     QDir dir("config");
     if (!dir.exists()){
         qWarning("Cannot find the config directory");
@@ -230,7 +230,7 @@ void Dialog::init(){
 
 
 }
-
+//多目标检测 历史图像
 void Dialog::update_mhi(IplImage *img, IplImage *dst)
 {
         double timestamp = clock()/100.; // get current time in seconds 时间戳
@@ -340,9 +340,9 @@ void Dialog::on_pushButton_4_clicked()//统计车辆开始
            {
                QString line = in.readLine();
                imagelist<<(dir+'/'+line);
-                //imagelist.push_back(line);
-              // Mat image =imread((dir+'/'+line).toStdString().c_str());
-              // setlablepic(ui->labelcar,image);
+              //imagelist.push_back(line);
+              //Mat image =imread((dir+'/'+line).toStdString().c_str());
+              //setlablepic(ui->labelcar,image);
               //emit getlocalFrameSignal();
 
 //              imshow("car",image);
