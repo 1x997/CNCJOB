@@ -82,7 +82,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <property name="elideMode">
     <enum>Qt::ElideNone</enum>
@@ -172,14 +172,14 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>340</y>
+     <x>440</x>
+     <y>370</y>
      <width>141</width>
      <height>16</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 5;</string>
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
