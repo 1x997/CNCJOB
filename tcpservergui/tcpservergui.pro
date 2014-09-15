@@ -10,11 +10,11 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = tcpservergui
 TEMPLATE = app
-INCLUDEPATH += g:/opencv/build/include/opencv \
-INCLUDEPATH += g:/opencv/build/include/opencv2 \
-INCLUDEPATH += g:/opencv/build/include \
-INCLUDEPATH += H:/FTP/testdir/tcpservergui/package_bgs
-LIBS += -Lg:/opencv/build/x64/vc11/lib \
+INCLUDEPATH += P:/soft/opencv/build/include/opencv \
+INCLUDEPATH += P:/soft/opencv/build/include/opencv2 \
+INCLUDEPATH += P:/soft/opencv/build/include \
+
+LIBS += -LP:/soft/opencv/build/x64/vc11/lib \
     -lopencv_calib3d249d \
     -lopencv_contrib249d \
     -lopencv_core249d \
