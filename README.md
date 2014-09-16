@@ -22,9 +22,12 @@ just like the image show here
 contact:
 ---
 
-**yuliyang@qq.com**
-2014年9月13日
+UPDATA
+---
 
-//yuliyang
 
-//chenrenfei
+增加了拖拽的工程
+
+![http://img3.picbed.org/uploads/2014/09/2014_09_16_00005.jpg](http://img3.picbed.org/uploads/2014/09/2014_09_16_00005.jpg)
+
+
