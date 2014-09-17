@@ -27,7 +27,10 @@ UPDATA
 
 
 增加了拖拽的工程
-
+---
 ![http://img3.picbed.org/uploads/2014/09/2014_09_16_00005.jpg](http://img3.picbed.org/uploads/2014/09/2014_09_16_00005.jpg)
 
 
+增加了拖拽播放视频
+---
+![](http://bcs.duapp.com/yuliyang-ftp/2014-09-17_00002.jpg)

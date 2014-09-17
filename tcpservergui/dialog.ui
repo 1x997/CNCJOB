@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>687</width>
-    <height>488</height>
+    <width>673</width>
+    <height>533</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -193,9 +193,9 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>370</y>
-     <width>141</width>
+     <x>370</x>
+     <y>340</y>
+     <width>121</width>
      <height>16</height>
     </rect>
    </property>
@@ -285,8 +285,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>310</y>
+     <x>370</x>
+     <y>280</y>
      <width>121</width>
      <height>46</height>
     </rect>
@@ -316,6 +316,45 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="labeldrag">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>420</y>
+     <width>231</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+border: 3px dotted green;
+border-radius: 10;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00ff7f;&quot;&gt;拖拽到此处&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="message">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>510</y>
+     <width>231</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(170, 255, 255);
+border: 1px solid green;
+border-radius: 5;</string>
+   </property>
+   <property name="text">
+    <string>message</string>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

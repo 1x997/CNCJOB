@@ -17,6 +17,15 @@
 #include "processhogwork.h"
 #include "package_bgs/MixtureOfGaussianV2BGS.h"
 #include "package_bgs/FrameDifferenceBGS.h"
+
+//拖拽头文件
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QPoint>
+#include <QRect>
+
+
 using namespace cv;
 using namespace std;
 namespace Ui {
@@ -62,11 +71,17 @@ public:
     IplImage* image;
 
 
+
+
+//    车速测量
+    QString AVIfilename;
 signals:
     void getlocalFrameSignal(); //获取车辆图像
+    void carSpeedFileNameSetSignal();
 
 private:
     Ui::Dialog *ui;
+
 
     QTimer *timer;                              /* 定时器，更新界面 */
 private slots:
@@ -79,6 +94,12 @@ private slots:
     void on_setimagedir_clicked(); //设置车辆目录
     void on_setdatalist_clicked(); //设置车辆datalist.txt
     void on_pushButton_4_clicked(); //车辆统计
+    void carSpeedFileNameSetProcess();
+
+    // QWidget interface
+protected:
+    void dragEnterEvent(QDragEnterEvent * e);
+    void dropEvent(QDropEvent *e);
 };
 
 #endif // DIALOG_H
