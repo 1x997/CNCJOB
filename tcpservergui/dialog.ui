@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>533</height>
+    <width>708</width>
+    <height>534</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -32,13 +32,15 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-image: url(:/imgs/rc/images/nosignal.jpg);</string>
+    <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+border-radius: 10;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;接收到的视频&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -59,8 +61,8 @@
     <rect>
      <x>340</x>
      <y>10</y>
-     <width>321</width>
-     <height>261</height>
+     <width>326</width>
+     <height>264</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -82,7 +84,7 @@
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>2</number>
    </property>
    <property name="elideMode">
     <enum>Qt::ElideNone</enum>
@@ -110,13 +112,16 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/imgs/rc/images/nosignal.jpg);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+border-radius: 10;
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;多目标&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
@@ -134,13 +139,15 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/imgs/rc/images/nosignal.jpg);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+border-radius: 10;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;行人&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
@@ -158,13 +165,15 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/imgs/rc/images/nosignal.jpg);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+border-radius: 10;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#ff0000;&quot;&gt;选择车辆视频文件夹&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
@@ -181,11 +190,16 @@
        <height>240</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+border-radius: 10;</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#ff0000;&quot;&gt;选择车辆视频目录&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#ff0000;&quot;&gt;选择车辆视频文件&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
@@ -193,8 +207,8 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>340</y>
+     <x>140</x>
+     <y>480</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -285,8 +299,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>280</y>
+     <x>10</x>
+     <y>470</y>
      <width>121</width>
      <height>46</height>
     </rect>
@@ -320,8 +334,8 @@
   <widget class="QLabel" name="labeldrag">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>420</y>
+     <x>440</x>
+     <y>290</y>
      <width>231</width>
      <height>81</height>
     </rect>
@@ -341,8 +355,8 @@ border-radius: 10;</string>
   <widget class="QLabel" name="message">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>510</y>
+     <x>440</x>
+     <y>380</y>
      <width>231</width>
      <height>16</height>
     </rect>

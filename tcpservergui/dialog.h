@@ -15,9 +15,15 @@
 #include <QLabel>
 #include "mytcpserver.h"
 #include "processhogwork.h"
+
+
 #include "package_bgs/MixtureOfGaussianV2BGS.h"
 #include "package_bgs/FrameDifferenceBGS.h"
+#include "package_bgs/pt/PixelBasedAdaptiveSegmenter.h"
 
+
+#include "package_analysis/VehicleCouting.h"
+#include "package_tracking/BlobTracking.h"
 //拖拽头文件
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -43,6 +49,7 @@ public:
     MyTcpServer *server;                        /* 服务器端 */
     Mat hogpeople(Mat image);
     void setlablepic(QLabel *lable, Mat image);//label显示Mat图像
+    void setLablePicAutoRefresh(QLabel * lable, Mat image);
     bool hogflag;
     void init();
     bool havepeople;

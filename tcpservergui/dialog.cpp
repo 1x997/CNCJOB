@@ -167,6 +167,14 @@ void Dialog::setlablepic(QLabel * lable, Mat image){
 
 }
 
+
+void Dialog::setLablePicAutoRefresh(QLabel * lable, Mat image){
+    QImage labelimage= QImage((uchar*) image.data, image.cols, image.rows, image.step, QImage::Format_RGB888).rgbSwapped();
+    lable->setPixmap(QPixmap::fromImage(labelimage));
+    lable->repaint();
+
+}
+
 //HOG行人检测后把检测后的图像return
 Mat Dialog::hogpeople(Mat image){
     Mat tempimg;
@@ -388,10 +396,7 @@ void Dialog::dropEvent(QDropEvent *e)
             this->AVIfilename=fileName;
             emit carSpeedFileNameSetSignal();
         }
-
-
     }
-
 }
 
 //处理车速
@@ -399,7 +404,131 @@ void Dialog::dropEvent(QDropEvent *e)
 void Dialog::carSpeedFileNameSetProcess()
 {
 
-//    qDebug()<<"Process AVIfile";
+    //    qDebug()<<"Process AVIfile";
+    //    CvCapture *capture = 0;
+    //    capture = cvCaptureFromAVI(AVIfilename.toStdString().c_str());
+    //    if(!capture){
+    //        std::cerr << "Cannot open video!" << std::endl;
+    //        return ;
+    //    }
+    //    IplImage *frame_aux = cvQueryFrame(capture);
+    //    int key = 0;
+    //    while(key != 'q'){
+    //        frame_aux = cvQueryFrame(capture);
+    //        if(!frame_aux) break;
+    //        cv::Mat img_input(frame_aux);
+    //        cv::Mat showimg;
+    //        img_input.copyTo(showimg);
+    //        setLablePicAutoRefresh(ui->labelcarspeed,showimg);
+    //        key = cvWaitKey(100);
+    //    }
+
+
+
+    CvCapture *capture = 0;
+    capture = cvCaptureFromAVI(AVIfilename.toStdString().c_str());
+    if(!capture){
+        std::cerr << "Cannot open video!" << std::endl;
+        return ;
+    }
+
+    int resize_factor = 100; // 50% of original image
+    IplImage *frame_aux = cvQueryFrame(capture);
+    IplImage *frame = cvCreateImage(cvSize((int)((frame_aux->width*resize_factor)/100) , (int)((frame_aux->height*resize_factor)/100)), frame_aux->depth, frame_aux->nChannels);
+
+    /* Background Subtraction Methods */
+    IBGS *bgs;
+
+    /*** Default Package ***/
+    //bgs = new FrameDifferenceBGS;
+    //bgs = new StaticFrameDifferenceBGS;
+    //bgs = new WeightedMovingMeanBGS;
+    //bgs = new WeightedMovingVarianceBGS;
+    //bgs = new MixtureOfGaussianV1BGS;
+    //bgs = new MixtureOfGaussianV2BGS;
+    //bgs = new AdaptiveBackgroundLearning;
+    //bgs = new GMG;
+
+    /*** DP Package (adapted from Donovan Parks) ***/
+    //bgs = new DPAdaptiveMedianBGS;
+    //bgs = new DPGrimsonGMMBGS;
+    //bgs = new DPZivkovicAGMMBGS;
+    //bgs = new DPMeanBGS;
+    //bgs = new DPWrenGABGS;
+    //bgs = new DPPratiMediodBGS;
+    //bgs = new DPEigenbackgroundBGS;
+
+    /*** TB Package (adapted from Thierry Bouwmans) ***/
+    //bgs = new T2FGMM_UM;
+    //bgs = new T2FGMM_UV;
+    //bgs = new T2FMRF_UM;
+    //bgs = new T2FMRF_UV;
+    //bgs = new FuzzySugenoIntegral;
+    //bgs = new FuzzyChoquetIntegral;
+
+    /*** JMO Package (adapted from Jean-Marc Odobez) ***/
+    //bgs = new MultiLayerBGS;
+
+    /*** PT Package (adapted from Hofmann) ***/
+    bgs = new PixelBasedAdaptiveSegmenter;
+
+    /*** LB Package (adapted from Laurence Bender) ***/
+    //bgs = new LBSimpleGaussian;
+    //bgs = new LBFuzzyGaussian;
+    //bgs = new LBMixtureOfGaussians;
+    //bgs = new LBAdaptiveSOM;
+    //bgs = new LBFuzzyAdaptiveSOM;
+
+    /* Blob Tracking */
+    cv::Mat img_blob;
+    BlobTracking* blobTracking;
+    blobTracking = new BlobTracking;
+
+    /* Vehicle Counting Algorithm */
+    VehicleCouting* vehicleCouting;
+    vehicleCouting = new VehicleCouting;
+
+    int key = 0;
+    while(key != 'q')
+    {
+        frame_aux = cvQueryFrame(capture);
+        if(!frame_aux) break;
+
+        cvResize(frame_aux, frame);
+
+        cv::Mat img_input(frame);
+//        cv::imshow("input", img_input);
+
+        // bgs->process(...) method internally shows the foreground mask image
+        cv::Mat img_mask;
+        cv::Mat img_background;
+        bgs->process(img_input, img_mask,img_background);
+
+        if(!img_mask.empty())
+        {
+            // Perform blob tracking
+            blobTracking->process(img_input, img_mask, img_blob);
+//            cv:imshow("img_blob",img_blob);
+
+
+            // Perform vehicle counting
+            vehicleCouting->setInput(img_blob);
+            vehicleCouting->setTracks(blobTracking->getTracks());
+            vehicleCouting->process();
+            Mat carspeed =vehicleCouting->getInput();
+            setLablePicAutoRefresh(ui->labelcarspeed,carspeed);
+//            imshow("carspeed",carspeed);
+        }
+
+        key = cvWaitKey(1);
+    }
+
+    delete vehicleCouting;
+    delete blobTracking;
+    delete bgs;
+
+    cvDestroyAllWindows();
+    cvReleaseCapture(&capture);
 
 
 }
