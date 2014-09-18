@@ -1,1 +1,0 @@
-{ "debug_level" : 1, "deletable" : 0, "dest" : "qiniu:access_key=你的AK&secret_key=你的SK&bucket=你的空间名字", "src" : "P:/user/yuliyang/update" }

@@ -1,2 +1,0 @@
-cd .
-qrsync  conf.json
