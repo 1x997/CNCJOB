@@ -185,13 +185,23 @@ void VehicleCouting::process()
     cvb::CvTrack* track = (*it).second;
 
     CvPoint2D64f centroid = track->centroid;
-    /*
-    std::cout << "---------------------------------------------------------------" << std::endl;
-    std::cout << "0)id:" << id << " (" << centroid.x << "," << centroid.y << ")" << std::endl;
-    std::cout << "track->active:" << track->active << std::endl;
-    std::cout << "track->inactive:" << track->inactive << std::endl;
-    std::cout << "track->lifetime:" << track->lifetime << std::endl;
-    */
+
+//    std::cout << "---------------------------------------------------------------" << std::endl;
+//    std::cout << "0)id:" << id << " (" << centroid.x << "," << centroid.y << ")" << std::endl;
+//    std::cout << "track->active:" << track->active << std::endl;
+//    std::cout << "track->inactive:" << track->inactive << std::endl;
+//    std::cout << "track->lifetime:" << track->lifetime << std::endl;
+
+
+
+    if(1==track->active )
+    {
+        time(&start);
+        startpoint=centroid;
+
+    }
+
+
     
     //----------------------------------------------------------------------------
 
@@ -235,11 +245,15 @@ void VehicleCouting::process()
     {
       std::map<cvb::CvID, std::vector<CvPoint2D64f>>::iterator it2 = points.find(id);
       std::vector<CvPoint2D64f> centroids = it2->second;
+
+//      if (centroids.size()==1){
+//          time(&start);
+//      }
       
       std::vector<CvPoint2D64f> centroids2;
       if(track->inactive == 0 && centroids.size() < 30)
       {
-        centroids2.push_back(centroid);
+        centroids2.push_back(centroid); // the latest center point
       
         for(std::vector<CvPoint2D64f>::iterator it3 = centroids.begin() ; it3 != centroids.end(); it3++)
         {
@@ -265,9 +279,21 @@ void VehicleCouting::process()
       {
         std::vector<CvPoint2D64f> centroids;
         centroids.push_back(centroid);
+//        time(&start);
         points.insert(std::pair<cvb::CvID, std::vector<CvPoint2D64f>>(id,centroids));
       }
     }
+    time(&end);
+    double sec=difftime(end,start);
+    endpoint = centroid;
+
+    double distance =sqrt((endpoint.y-startpoint.y) *(endpoint.y-startpoint.y)+(endpoint.x-startpoint.x)*(endpoint.x-startpoint.x));
+    std::cout <<"track->id:"<<track->id << "   track->lifetime:    " << track->lifetime ;
+    printf("distance : %f  ",distance);
+    printf("time cost: %lf \n ",sec);
+
+
+
 
     //cv::waitKey(0);
   }

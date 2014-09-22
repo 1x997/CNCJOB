@@ -43,6 +43,12 @@ public:
   VehicleCouting();
   ~VehicleCouting();
 
+
+  time_t start;
+  time_t end;
+  CvPoint2D64f startpoint;
+  CvPoint2D64f endpoint;
+
   cv::Mat getInput();
   void setInput(const cv::Mat &i);
   void setTracks(const cvb::CvTracks &t);

@@ -77,6 +77,19 @@ public:
     Mat multitrack(Mat image);
     IplImage* image;
 
+//    车速检测
+    bool carspeedflag;
+    CvCapture *capture;
+    int resize_factor;
+    VehicleCouting* vehicleCouting;
+
+    cv::Mat img_blob;
+    BlobTracking* blobTracking;
+    IplImage *frame_aux;
+    IplImage *frame;
+    QTimer *timerforcarspeed;
+    IBGS *bgscarspeed;
+
 
 
 
@@ -104,6 +117,8 @@ private slots:
     void carSpeedFileNameSetProcess();
 
     // QWidget interface
+    void on_stopcarspeed_clicked();
+
 protected:
     void dragEnterEvent(QDragEnterEvent * e);
     void dropEvent(QDropEvent *e);

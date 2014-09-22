@@ -357,7 +357,7 @@ border-radius: 10;</string>
     <rect>
      <x>440</x>
      <y>380</y>
-     <width>231</width>
+     <width>141</width>
      <height>16</height>
     </rect>
    </property>
@@ -368,6 +368,24 @@ border-radius: 5;</string>
    </property>
    <property name="text">
     <string>message</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="stopcarspeed">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>380</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+border: 3px solid green;
+border-radius: 5;</string>
+   </property>
+   <property name="text">
+    <string>停止车辆测</string>
    </property>
   </widget>
  </widget>

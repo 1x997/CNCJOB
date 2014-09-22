@@ -11,7 +11,7 @@ using namespace std;
 static bool stable2;
 static QList<QString> imagelist;
 static  int carframe=0;
-Dialog::Dialog(QWidget *parent) :
+Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),
     QDialog(parent),
     ui(new Ui::Dialog)
 {
@@ -86,13 +86,11 @@ void Dialog::getlocalFrame()
         imagename = imagelist.at(carframe);
     }
     Mat img_input =imread(imagename.toStdString().c_str());
-    //      qDebug()<<imagename.toStdString().c_str();
+//    qDebug()<<imagename.toStdString().c_str();
     rectangle(img_input, Point( 0, 120 ), Point( 320, 170),Scalar( 0, 255, 255 ), 1, 8, 0);
     cv::Mat img_mask;
     cv::Mat img_bkgmodel;
     bgs->process(img_input, img_mask, img_bkgmodel);
-
-
     Mat submask = img_mask(rect);
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(8, 8));
     cv::erode(submask,submask,element);
@@ -136,7 +134,6 @@ void Dialog::getlocalFrame()
     carframe++;
 
 }
-
 
 //多线程
 void Dialog::showprocess()
@@ -223,24 +220,16 @@ void Dialog::init(){
     carnum =0;
     rect = Rect(0,120,320,50);
     bgs = new MixtureOfGaussianV2BGS;
-    // connect(this,SIGNAL(getlocalFrameSignal()),this,SLOT(getlocalFrame()));
-
-    connect(this, SIGNAL(carSpeedFileNameSetSignal()), this, SLOT(carSpeedFileNameSetProcess()));
-
     ui->labelrecv->setText("");
     ui->labelmult->setText("");
     ui->labelcar->setText("");
     ui->labelperson->setText("");
-
     //mkdir config   QDir::mkdir  如果配置文件目录不存在，则先创建配置文件目录
     QDir dir("config");
     if (!dir.exists()){
         qWarning("Cannot find the config directory");
         dir.mkdir(".");
-
     }
-
-
 }
 //多目标检测 历史图像
 void Dialog::update_mhi(IplImage *img, IplImage *dst)
@@ -363,7 +352,6 @@ void Dialog::on_pushButton_4_clicked()//统计车辆开始
         datalist.close();
     }
     //emit getlocalFrameSignal();
-
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(getlocalFrame()));
     timer->start(50);
@@ -394,7 +382,11 @@ void Dialog::dropEvent(QDropEvent *e)
             ui->message->setText(fileName);
 
             this->AVIfilename=fileName;
-            emit carSpeedFileNameSetSignal();
+//          emit carSpeedFileNameSetSignal();
+
+            timerforcarspeed = new QTimer(this);
+            connect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
+            timerforcarspeed->start(50);
         }
     }
 }
@@ -403,112 +395,46 @@ void Dialog::dropEvent(QDropEvent *e)
 
 void Dialog::carSpeedFileNameSetProcess()
 {
+    if(capture == NULL){
+        capture = cvCaptureFromAVI(AVIfilename.toStdString().c_str());
 
-    //    qDebug()<<"Process AVIfile";
-    //    CvCapture *capture = 0;
-    //    capture = cvCaptureFromAVI(AVIfilename.toStdString().c_str());
-    //    if(!capture){
-    //        std::cerr << "Cannot open video!" << std::endl;
-    //        return ;
-    //    }
-    //    IplImage *frame_aux = cvQueryFrame(capture);
-    //    int key = 0;
-    //    while(key != 'q'){
-    //        frame_aux = cvQueryFrame(capture);
-    //        if(!frame_aux) break;
-    //        cv::Mat img_input(frame_aux);
-    //        cv::Mat showimg;
-    //        img_input.copyTo(showimg);
-    //        setLablePicAutoRefresh(ui->labelcarspeed,showimg);
-    //        key = cvWaitKey(100);
-    //    }
+     }
+
+    frame_aux = cvQueryFrame(capture);
+    if(frame_aux == NULL){
+        disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
+        return;
+     }
 
 
+    frame = cvCreateImage(cvSize((int)((frame_aux->width*resize_factor)/100) , (int)((frame_aux->height*resize_factor)/100)), frame_aux->depth, frame_aux->nChannels);
 
-    CvCapture *capture = 0;
-    capture = cvCaptureFromAVI(AVIfilename.toStdString().c_str());
-    if(!capture){
-        std::cerr << "Cannot open video!" << std::endl;
-        return ;
-    }
-
-    int resize_factor = 100; // 50% of original image
-    IplImage *frame_aux = cvQueryFrame(capture);
-    IplImage *frame = cvCreateImage(cvSize((int)((frame_aux->width*resize_factor)/100) , (int)((frame_aux->height*resize_factor)/100)), frame_aux->depth, frame_aux->nChannels);
-
-    /* Background Subtraction Methods */
-    IBGS *bgs;
-
-    /*** Default Package ***/
-    //bgs = new FrameDifferenceBGS;
-    //bgs = new StaticFrameDifferenceBGS;
-    //bgs = new WeightedMovingMeanBGS;
-    //bgs = new WeightedMovingVarianceBGS;
-    //bgs = new MixtureOfGaussianV1BGS;
-    //bgs = new MixtureOfGaussianV2BGS;
-    //bgs = new AdaptiveBackgroundLearning;
-    //bgs = new GMG;
-
-    /*** DP Package (adapted from Donovan Parks) ***/
-    //bgs = new DPAdaptiveMedianBGS;
-    //bgs = new DPGrimsonGMMBGS;
-    //bgs = new DPZivkovicAGMMBGS;
-    //bgs = new DPMeanBGS;
-    //bgs = new DPWrenGABGS;
-    //bgs = new DPPratiMediodBGS;
-    //bgs = new DPEigenbackgroundBGS;
-
-    /*** TB Package (adapted from Thierry Bouwmans) ***/
-    //bgs = new T2FGMM_UM;
-    //bgs = new T2FGMM_UV;
-    //bgs = new T2FMRF_UM;
-    //bgs = new T2FMRF_UV;
-    //bgs = new FuzzySugenoIntegral;
-    //bgs = new FuzzyChoquetIntegral;
-
-    /*** JMO Package (adapted from Jean-Marc Odobez) ***/
-    //bgs = new MultiLayerBGS;
-
-    /*** PT Package (adapted from Hofmann) ***/
-    bgs = new PixelBasedAdaptiveSegmenter;
-
-    /*** LB Package (adapted from Laurence Bender) ***/
-    //bgs = new LBSimpleGaussian;
-    //bgs = new LBFuzzyGaussian;
-    //bgs = new LBMixtureOfGaussians;
-    //bgs = new LBAdaptiveSOM;
-    //bgs = new LBFuzzyAdaptiveSOM;
-
-    /* Blob Tracking */
-    cv::Mat img_blob;
-    BlobTracking* blobTracking;
-    blobTracking = new BlobTracking;
+    if(blobTracking==NULL)
+         blobTracking = new BlobTracking;
 
     /* Vehicle Counting Algorithm */
-    VehicleCouting* vehicleCouting;
-    vehicleCouting = new VehicleCouting;
+//    VehicleCouting* vehicleCouting;
+//    vehicleCouting = new VehicleCouting;
 
     int key = 0;
-    while(key != 'q')
+    if(key != 'q' & !this->carspeedflag)
     {
         frame_aux = cvQueryFrame(capture);
-        if(!frame_aux) break;
-
+        if(!frame_aux)
+        {
+            disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
+            return;
+        }
         cvResize(frame_aux, frame);
-
         cv::Mat img_input(frame);
-//        cv::imshow("input", img_input);
-
-        // bgs->process(...) method internally shows the foreground mask image
         cv::Mat img_mask;
         cv::Mat img_background;
-        bgs->process(img_input, img_mask,img_background);
-
+        bgscarspeed->process(img_input, img_mask,img_background);
         if(!img_mask.empty())
         {
-            // Perform blob tracking
+//  Perform blob tracking
             blobTracking->process(img_input, img_mask, img_blob);
-//            cv:imshow("img_blob",img_blob);
+//  cv:imshow("img_blob",img_blob);
 
 
             // Perform vehicle counting
@@ -519,16 +445,21 @@ void Dialog::carSpeedFileNameSetProcess()
             setLablePicAutoRefresh(ui->labelcarspeed,carspeed);
 //            imshow("carspeed",carspeed);
         }
-
         key = cvWaitKey(1);
     }
 
-    delete vehicleCouting;
-    delete blobTracking;
-    delete bgs;
+//    delete vehicleCouting;
+//    delete blobTracking;
+//    delete bgs;
+//    cvDestroyAllWindows();
+//    cvReleaseCapture(&capture);
 
-    cvDestroyAllWindows();
-    cvReleaseCapture(&capture);
 
+}
+//停止车速测量
+void Dialog::on_stopcarspeed_clicked()
+{
+    this->carspeedflag=true; //stop 测量
+    disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
 
 }
