@@ -11,7 +11,8 @@ using namespace std;
 static bool stable2;
 static QList<QString> imagelist;
 static  int carframe=0;
-Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),
+
+Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),IP("192.168.1.102"),PORT(6000),videoSize(Size(320,240)),
     QDialog(parent),
     ui(new Ui::Dialog)
 {
@@ -20,6 +21,9 @@ Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor
     //设置接受拖拽
     setAcceptDrops(true);
     init();
+
+    ui->ipEdit->setText(IP);
+    ui->portEdit->setText(QString::number(PORT));
 
     ui->comboBox->addItem ("FrameDifferenceBGS");
     ui->comboBox->addItem ("AdaptiveBackgroundLearning");
@@ -217,6 +221,10 @@ void Dialog::init(){
     multiflag=false;
     //初始化车辆统计
 
+
+
+
+
     carnum =0;
     rect = Rect(0,120,320,50);
     bgs = new MixtureOfGaussianV2BGS;
@@ -230,6 +238,14 @@ void Dialog::init(){
         qWarning("Cannot find the config directory");
         dir.mkdir(".");
     }
+
+    //write avi to hdd
+    writer.open("result.avi",CV_FOURCC('D','I','V','X'),15,videoSize);
+
+
+
+
+
 }
 //多目标检测 历史图像
 void Dialog::update_mhi(IplImage *img, IplImage *dst)
@@ -286,6 +302,16 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
             cvRectangle( img, cvPoint(r.x,r.y),
                          cvPoint(r.x + r.width, r.y + r.height),
                          CV_RGB(255,0,0), 1, CV_AA,0);
+
+
+            //写到视频文件里
+
+            Mat writetoavi = Mat(img,false);
+            writer<<writetoavi;
+
+            //发送消息到android
+
+            emit sendtoandroid();
         }
     }
 
@@ -368,7 +394,6 @@ void Dialog::dragEnterEvent(QDragEnterEvent *e)
         e->acceptProposedAction();
     }
 
-
 }
 
 void Dialog::dropEvent(QDropEvent *e)
@@ -392,7 +417,6 @@ void Dialog::dropEvent(QDropEvent *e)
 }
 
 //处理车速
-
 void Dialog::carSpeedFileNameSetProcess()
 {
     if(capture == NULL){
@@ -405,14 +429,12 @@ void Dialog::carSpeedFileNameSetProcess()
         disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
         return;
      }
-
-
     frame = cvCreateImage(cvSize((int)((frame_aux->width*resize_factor)/100) , (int)((frame_aux->height*resize_factor)/100)), frame_aux->depth, frame_aux->nChannels);
 
     if(blobTracking==NULL)
          blobTracking = new BlobTracking;
 
-    /* Vehicle Counting Algorithm */
+/* Vehicle Counting Algorithm */
 //    VehicleCouting* vehicleCouting;
 //    vehicleCouting = new VehicleCouting;
 
@@ -434,9 +456,7 @@ void Dialog::carSpeedFileNameSetProcess()
         {
 //  Perform blob tracking
             blobTracking->process(img_input, img_mask, img_blob);
-//  cv:imshow("img_blob",img_blob);
-
-
+            //  cv:imshow("img_blob",img_blob);
             // Perform vehicle counting
             vehicleCouting->setInput(img_blob);
             vehicleCouting->setTracks(blobTracking->getTracks());
@@ -462,4 +482,51 @@ void Dialog::on_stopcarspeed_clicked()
     this->carspeedflag=true; //stop 测量
     disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
 
+}
+
+
+//绑定IP地址和端口
+void Dialog::on_bindIP_clicked()
+{
+    this->IP=ui->ipEdit->text();
+    this->PORT=ui->portEdit->text().toInt();
+
+    if(IP.length()==0){
+        // set ip first please
+        return;
+
+    }
+
+    socket = new QTcpSocket(this);
+    connect(socket, SIGNAL(connected()),this, SLOT(connected()));
+    connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
+    connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(bytesWritten(qint64)));
+    connect(socket, SIGNAL(readyRead()),this, SLOT(readyRead()));
+    connect(this, SIGNAL(sendtoandroid()),this, SLOT(sendtoandroidprocess()));
+
+}
+void Dialog::connected()
+{
+    socket->write("some body come in");
+    socket->close();
+}
+
+void Dialog::disconnected()
+{
+    qDebug() << "disconnected...";
+}
+void Dialog::bytesWritten(qint64 bytes)
+{
+    qDebug() << bytes << " bytes written...";
+}
+
+void Dialog::readyRead()
+{
+    qDebug() << "reading...";
+    qDebug() << socket->readAll();
+}
+void Dialog::sendtoandroidprocess()
+{
+            qDebug() << "connecting...";
+            socket->connectToHost(IP.toStdString().c_str(), PORT);
 }

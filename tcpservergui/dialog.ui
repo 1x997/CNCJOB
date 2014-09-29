@@ -84,7 +84,7 @@ border-radius: 10;</string>
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <property name="elideMode">
     <enum>Qt::ElideNone</enum>
@@ -214,7 +214,9 @@ border-radius: 10;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 5;</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
@@ -386,6 +388,54 @@ border-radius: 5;</string>
    </property>
    <property name="text">
     <string>停止车辆测</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ipEdit">
+   <property name="geometry">
+    <rect>
+     <x>392</x>
+     <y>470</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 5;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="bindIP">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>500</y>
+     <width>171</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 5;</string>
+   </property>
+   <property name="text">
+    <string>绑定IP和端口</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="portEdit">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>470</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 5;</string>
    </property>
   </widget>
  </widget>
