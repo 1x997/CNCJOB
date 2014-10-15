@@ -38,6 +38,8 @@ private slots:
     void on_pushButton_clicked();
     void getFrame(); //实现定时从摄像头取图并显示在label上的功能。
 
+    void on_pushButton_2_clicked();
+
 public slots:
     void connected();
     void disconnected();

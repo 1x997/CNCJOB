@@ -11,6 +11,7 @@ using namespace std;
 static bool stable2;
 static QList<QString> imagelist;
 static  int carframe=0;
+static Mat writetoavi;
 
 Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),IP("192.168.1.102"),PORT(6000),videoSize(Size(320,240)),
     QDialog(parent),
@@ -306,7 +307,7 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
 
             //写到视频文件里
 
-            Mat writetoavi = Mat(img,false);
+            writetoavi = Mat(img,false);
             writer<<writetoavi;
 
             //发送消息到android
@@ -496,7 +497,6 @@ void Dialog::on_bindIP_clicked()
         return;
 
     }
-
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()),this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
@@ -507,8 +507,15 @@ void Dialog::on_bindIP_clicked()
 }
 void Dialog::connected()
 {
-    socket->write("some body come in");
+//    socket->write("some body come in");
+//    socket->close();
+    Mat sentframe = writetoavi.reshape(0,1);
+    std::string message((char *)sentframe.data,230400);
+    socket->write(message.c_str(),230400);
+
     socket->close();
+    qDebug()<<"connected and image send finished...";
+
 }
 
 void Dialog::disconnected()
@@ -528,5 +535,9 @@ void Dialog::readyRead()
 void Dialog::sendtoandroidprocess()
 {
             qDebug() << "connecting...";
+            if(socket->isOpen()){
+                qDebug()<<"already opened ,wait please...";
+                return;
+            }
             socket->connectToHost(IP.toStdString().c_str(), PORT);
 }

@@ -108,10 +108,14 @@ void Dialog::initBackgroundSubtractorMOG2()
 
 void Dialog::sendtoandroidprocess()
 {
-            qDebug() << "connecting...";
-//            socket->connectToHost("192.168.1.102", 6000);
-            socket->connectToHost(IP.toStdString().c_str(), PORT);
-            ui->label_2->setText("waring sending to android...");
+    qDebug() << "connecting...";
+    //            socket->connectToHost("192.168.1.102", 6000);
+    if(socket->isOpen()){
+        qDebug()<<"already opened ,wait please...";
+        return;
+    }
+    socket->connectToHost(IP.toStdString().c_str(), PORT);
+    ui->label_2->setText("waring sending to android...");
 
 }
 
@@ -143,14 +147,21 @@ void Dialog::on_pushButton_clicked()
 
 
     connect(this, SIGNAL(sendtoandroid()),this, SLOT(sendtoandroidprocess()));
-//    qDebug() << "connecting...";
-//    socket->connectToHost("192.168.1.102", 6000);
+    //    qDebug() << "connecting...";
+    //    socket->connectToHost("192.168.1.102", 6000);
 }
 
 void Dialog::connected()
 {
-    socket->write("some body come in");
+    //    socket->write("some body come in");
+    //    socket->close();
+
+    Mat sentframe = frame.reshape(0,1);
+    std::string message((char *)sentframe.data,230400);
+    socket->write(message.c_str(),230400);
+
     socket->close();
+    qDebug()<<"connected and image send finished...";
 
 }
 
@@ -169,4 +180,9 @@ void Dialog::readyRead()
 {
     qDebug() << "reading...";
     qDebug() << socket->readAll();
+}
+
+void Dialog::on_pushButton_2_clicked()
+{
+
 }
