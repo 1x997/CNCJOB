@@ -489,6 +489,8 @@ void Dialog::on_stopcarspeed_clicked()
 //绑定IP地址和端口
 void Dialog::on_bindIP_clicked()
 {
+//    ui->bindIP->isSignalConnected(QPushButton::clicked());
+//    if(this->isSignalConnected(this->sendtoandroid)) return;
     this->IP=ui->ipEdit->text();
     this->PORT=ui->portEdit->text().toInt();
 
@@ -503,18 +505,16 @@ void Dialog::on_bindIP_clicked()
     connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(bytesWritten(qint64)));
     connect(socket, SIGNAL(readyRead()),this, SLOT(readyRead()));
     connect(this, SIGNAL(sendtoandroid()),this, SLOT(sendtoandroidprocess()));
+    ui->bindIP->setStyleSheet("background-color: red");
+
 
 }
 void Dialog::connected()
 {
 //    socket->write("some body come in");
 //    socket->close();
-    Mat sentframe = writetoavi.reshape(0,1);
-    std::string message((char *)sentframe.data,230400);
-    socket->write(message.c_str(),230400);
+    qDebug()<<"connected....";
 
-    socket->close();
-    qDebug()<<"connected and image send finished...";
 
 }
 
@@ -540,4 +540,10 @@ void Dialog::sendtoandroidprocess()
                 return;
             }
             socket->connectToHost(IP.toStdString().c_str(), PORT);
+            Mat sentframe = writetoavi.reshape(0,1);
+            if(sentframe.empty()) return;
+            std::string message((char *)sentframe.data,230400);
+            socket->write(message.c_str(),230400);
+            socket->close();
+            qDebug()<<"connected and image send finished...";
 }

@@ -10,23 +10,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = tcpservergui
 TEMPLATE = app
-#公用机环境目录
-#INCLUDEPATH += P:/soft/opencv/build/include/opencv \
-#INCLUDEPATH += P:/soft/opencv/build/include/opencv2 \
-#INCLUDEPATH += P:/soft/opencv/build/include \
+#pub pc
+INCLUDEPATH += P:/soft/opencv/build/include/opencv \
+INCLUDEPATH += P:/soft/opencv/build/include/opencv2 \
+INCLUDEPATH += P:/soft/opencv/build/include \
 
-#自己电脑环境目录
-INCLUDEPATH += f:/opencv/build/include/opencv \
-INCLUDEPATH += f:/opencv/build/include/opencv2 \
-INCLUDEPATH += f:/opencv/build/include \
+#my pc
+#INCLUDEPATH += f:/opencv/build/include/opencv \
+#INCLUDEPATH += f:/opencv/build/include/opencv2 \
+#INCLUDEPATH += f:/opencv/build/include \
 
-#公用机环境目录
-#INCLUDEPATH += P:/publicinstall/boost_1_56_0  \
-#LIBS += -LP:/publicinstall/boost_1_56_0/lib64-msvc-11.0  \
-
-#自己电脑环境目录
-INCLUDEPATH += f:/boost_1_56_0  \
-LIBS += -Lf:/boost_1_56_0/lib32-msvc-11.0  \
+#pub pc
+INCLUDEPATH += P:/publicinstall/boost_1_56_0  \
+LIBS += -LP:/publicinstall/boost_1_56_0/lib64-msvc-11.0  \
         -llibboost_atomic-vc110-mt-sgd-1_56 \
         -llibboost_chrono-vc110-mt-sgd-1_56 \
         -llibboost_container-vc110-mt-sgd-1_56 \
@@ -296,53 +292,54 @@ LIBS += -Lf:/boost_1_56_0/lib32-msvc-11.0  \
         -llibboost_signals-vc110-mt-1_56 \
         -llibboost_unit_test_framework-vc110-mt-1_56 \
         -llibboost_timer-vc110-mt-1_56 \
-        -llibboost_wave-vc110-mt-1_56 \
+        -llibboost_wave-vc110-mt-1_56
 
 
-#公用机器
-#LIBS += -LP:/soft/opencv/build/x64/vc11/lib \
-#    -lopencv_calib3d249d \
-#    -lopencv_contrib249d \
-#    -lopencv_core249d \
-#    -lopencv_features2d249d \
-#    -lopencv_flann249d \
-#    -lopencv_gpu249d \
-#    -lopencv_highgui249d \
-#    -lopencv_imgproc249d \
-#    -lopencv_legacy249d \
-#    -lopencv_ml249d \
-#    -lopencv_nonfree249d \
-#    -lopencv_objdetect249d \
-#    -lopencv_ocl249d \
-#    -lopencv_photo249d \
-#    -lopencv_stitching249d \
-#    -lopencv_superres249d \
-#    -lopencv_ts249d \
-#    -lopencv_video249d \
-#    -lopencv_videostab249d
+
+##mypc
+#LIBS += -Lf:/opencv/build/x86/vc11/lib \
+#    -lopencv_calib3d248d \
+#    -lopencv_contrib248d \
+#    -lopencv_core248d \
+#    -lopencv_features2d248d \
+#    -lopencv_flann248d \
+#    -lopencv_gpu248d \
+#    -lopencv_highgui248d \
+#    -lopencv_imgproc248d \
+#    -lopencv_legacy248d \
+#    -lopencv_ml248d \
+#    -lopencv_nonfree248d \
+#    -lopencv_objdetect248d \
+#    -lopencv_ocl248d \
+#    -lopencv_photo248d \
+#    -lopencv_stitching248d \
+#    -lopencv_superres248d \
+#    -lopencv_ts248d \
+#    -lopencv_video248d \
+#    -lopencv_videostab248d
 
 
-#自己电脑
-LIBS += -Lf:/opencv/build/x86/vc11/lib \
-    -lopencv_calib3d248d \
-    -lopencv_contrib248d \
-    -lopencv_core248d \
-    -lopencv_features2d248d \
-    -lopencv_flann248d \
-    -lopencv_gpu248d \
-    -lopencv_highgui248d \
-    -lopencv_imgproc248d \
-    -lopencv_legacy248d \
-    -lopencv_ml248d \
-    -lopencv_nonfree248d \
-    -lopencv_objdetect248d \
-    -lopencv_ocl248d \
-    -lopencv_photo248d \
-    -lopencv_stitching248d \
-    -lopencv_superres248d \
-    -lopencv_ts248d \
-    -lopencv_video248d \
-    -lopencv_videostab248d
+
+LIBS += -LP:/soft/opencv/build/x64/vc11/lib \
+    -lopencv_calib3d249d \
+    -lopencv_contrib249d \
+    -lopencv_core249d \
+    -lopencv_features2d249d \
+    -lopencv_flann249d \
+    -lopencv_gpu249d \
+    -lopencv_highgui249d \
+    -lopencv_imgproc249d \
+    -lopencv_legacy249d \
+    -lopencv_ml249d \
+    -lopencv_nonfree249d \
+    -lopencv_objdetect249d \
+    -lopencv_ocl249d \
+    -lopencv_photo249d \
+    -lopencv_stitching249d \
+    -lopencv_superres249d \
+    -lopencv_ts249d \
+    -lopencv_video249d \
+    -lopencv_videostab249d
 
 SOURCES += main.cpp\
         dialog.cpp \
