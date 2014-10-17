@@ -8,6 +8,24 @@
 
 #include "../package_tracking/cvblob/cvblob.h"
 
+typedef struct CarSpeed
+{
+    time_t starttime;
+    time_t lasttime;
+    CvPoint2D64f startcentroid;
+    CvPoint2D64f lastcentroid;
+}
+CarSpeed;
+
+typedef struct IdSpeed
+{
+    int id;
+    double speed;
+
+}
+IdSpeed;
+
+
 enum LaneOrientation
 {
   LO_NONE       = 0,
@@ -39,13 +57,20 @@ private:
   int img_h;
   int showAB;
 
+
 public:
+  std::map<cvb::CvID, CarSpeed> carspeeds;
+
+  std::vector<IdSpeed> idspeeds;
+
   VehicleCouting();
   ~VehicleCouting();
 
 
   time_t start;
   time_t end;
+
+
   CvPoint2D64f startpoint;
   CvPoint2D64f endpoint;
 
@@ -53,6 +78,11 @@ public:
   void setInput(const cv::Mat &i);
   void setTracks(const cvb::CvTracks &t);
   void process();
+
+
+
+  std::vector<IdSpeed> getIdspeeds() const;
+  void setIdspeeds(const std::vector<IdSpeed> &value);
 
 private:
   VehiclePosition getVehiclePosition(const CvPoint2D64f centroid);

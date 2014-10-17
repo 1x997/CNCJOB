@@ -118,6 +118,9 @@ private:
     QTimer *timer;                              /* 定时器，更新界面 */
 
 
+    void setCarSpeedLabel(QLabel * lable,QString qstring);
+
+
 public slots:
     void connected();
     void disconnected();

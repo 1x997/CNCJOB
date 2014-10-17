@@ -224,7 +224,7 @@ border-radius: 5;</string>
     <rect>
      <x>10</x>
      <y>280</y>
-     <width>352</width>
+     <width>311</width>
      <height>181</height>
     </rect>
    </property>
@@ -336,9 +336,9 @@ border-radius: 5;</string>
   <widget class="QLabel" name="labeldrag">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>290</y>
-     <width>231</width>
+     <x>340</x>
+     <y>320</y>
+     <width>321</width>
      <height>81</height>
     </rect>
    </property>
@@ -357,10 +357,10 @@ border-radius: 10;</string>
   <widget class="QLabel" name="message">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>380</y>
-     <width>141</width>
-     <height>16</height>
+     <x>340</x>
+     <y>410</y>
+     <width>211</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -375,9 +375,9 @@ border-radius: 5;</string>
   <widget class="QPushButton" name="stopcarspeed">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>380</y>
-     <width>75</width>
+     <x>560</x>
+     <y>410</y>
+     <width>101</width>
      <height>23</height>
     </rect>
    </property>
@@ -393,9 +393,9 @@ border-radius: 5;</string>
   <widget class="QLineEdit" name="ipEdit">
    <property name="geometry">
     <rect>
-     <x>392</x>
-     <y>470</y>
-     <width>111</width>
+     <x>360</x>
+     <y>480</y>
+     <width>151</width>
      <height>20</height>
     </rect>
    </property>
@@ -408,9 +408,9 @@ border-radius: 5;</string>
   <widget class="QPushButton" name="bindIP">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>360</x>
      <y>500</y>
-     <width>171</width>
+     <width>201</width>
      <height>25</height>
     </rect>
    </property>
@@ -427,7 +427,7 @@ border-radius: 5;</string>
    <property name="geometry">
     <rect>
      <x>510</x>
-     <y>470</y>
+     <y>480</y>
      <width>51</width>
      <height>20</height>
     </rect>
@@ -436,6 +436,26 @@ border-radius: 5;</string>
     <string notr="true">background-color: rgb(255, 255, 255);
 border: 1px solid ;
 border-radius: 5;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="carspeedlabel">
+   <property name="geometry">
+    <rect>
+     <x>343</x>
+     <y>280</y>
+     <width>321</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 255, 255);
+font: 75 12pt &quot;微软雅黑&quot;;
+color: rgb(255, 16, 28);
+border: 1px dotted green;
+border-radius: 5;</string>
+   </property>
+   <property name="text">
+    <string>车速</string>
    </property>
   </widget>
  </widget>

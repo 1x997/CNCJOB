@@ -13,6 +13,17 @@ static QList<QString> imagelist;
 static  int carframe=0;
 static Mat writetoavi;
 
+
+
+//typedef struct IdSpeed
+//{
+//    int id;
+//    double speed;
+
+//}
+//IdSpeed;
+
+
 Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),IP("192.168.1.102"),PORT(6000),videoSize(Size(320,240)),
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -334,6 +345,11 @@ Mat Dialog::multitrack(Mat image)
     return multiimage;
 }
 
+void Dialog::setCarSpeedLabel(QLabel *lable, QString qstring)
+{
+    lable->setText(qstring);
+}
+
 //enable multithread
 //设置车辆检测处理的图像所在目录
 void Dialog::on_pushButton_3_clicked()
@@ -462,6 +478,29 @@ void Dialog::carSpeedFileNameSetProcess()
             vehicleCouting->setInput(img_blob);
             vehicleCouting->setTracks(blobTracking->getTracks());
             vehicleCouting->process();
+
+            vector<IdSpeed> idspeeds=vehicleCouting->getIdspeeds();
+
+//            IdSpeed is;
+
+
+            if(idspeeds.size()>0){
+                QString carspeedlabel;
+
+                for(int i=0;i<idspeeds.size();i++){
+                    IdSpeed is1=idspeeds.at(i);
+                    std::cout<<"Id: "<<is1.id<<" Speed: "<<is1.speed<<std::endl;
+                    std::cout<<"-------------------------------------"<<std::endl;
+                    carspeedlabel +=" ID: "+QString::number(is1.id)+" SPEED: "+QString::number(is1.speed)+" ; ";
+                }
+
+                setCarSpeedLabel(ui->carspeedlabel,carspeedlabel);
+
+//                IdSpeed is1=idspeeds.at(0);
+//                std::cout<<"Id: "<<is1.id<<" Speed: "<<is1.speed<<std::endl;
+            }
+
+
             Mat carspeed =vehicleCouting->getInput();
             setLablePicAutoRefresh(ui->labelcarspeed,carspeed);
 //            imshow("carspeed",carspeed);
@@ -547,3 +586,4 @@ void Dialog::sendtoandroidprocess()
             socket->close();
             qDebug()<<"connected and image send finished...";
 }
+
