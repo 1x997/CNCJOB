@@ -24,7 +24,7 @@ static Mat writetoavi;
 //IdSpeed;
 
 
-Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),IP("192.168.1.102"),PORT(6000),videoSize(Size(320,240)),
+Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),IP("192.168.1.102"),PORT(3200),videoSize(Size(320,240)),
     QDialog(parent),
     ui(new Ui::Dialog)
 {

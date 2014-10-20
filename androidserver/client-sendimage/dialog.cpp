@@ -17,7 +17,7 @@ static Mat copyimg;
 static std::vector<std::vector<cv::Point> > contours;
 static int count=0;
 
-Dialog::Dialog(QWidget *parent) :IP("192.168.1.102"),PORT(6000),
+Dialog::Dialog(QWidget *parent) :IP("192.168.1.102"),PORT(3200),
     QDialog(parent),
     ui(new Ui::Dialog)
 {
