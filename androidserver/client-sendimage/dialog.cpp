@@ -1,4 +1,4 @@
-#include "dialog.h"
+﻿#include "dialog.h"
 #include "ui_dialog.h"
 
 /**
@@ -21,6 +21,7 @@ Dialog::Dialog(QWidget *parent) :IP("192.168.1.102"),PORT(3200),
     QDialog(parent),
     ui(new Ui::Dialog)
 {
+    setWindowTitle("client");
     ui->setupUi(this);
 
     ui->ipEdit->setText(IP);

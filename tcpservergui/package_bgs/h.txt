@@ -1,9 +1,0 @@
-AdaptiveBackgroundLearning.h
-FrameDifferenceBGS.h
-GMG.h
-IBGS.h
-MixtureOfGaussianV1BGS.h
-MixtureOfGaussianV2BGS.h
-StaticFrameDifferenceBGS.h
-WeightedMovingMeanBGS.h
-WeightedMovingVarianceBGS.h

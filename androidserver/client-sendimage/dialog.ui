@@ -6,122 +6,214 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>694</width>
-    <height>339</height>
+    <width>701</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_title">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>320</width>
-     <height>240</height>
+     <width>681</width>
+     <height>141</height>
     </rect>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/image/rc/images/title.jpg);</string>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>290</y>
-     <width>151</width>
-     <height>25</height>
+     <x>10</x>
+     <y>160</y>
+     <width>681</width>
+     <height>271</height>
     </rect>
    </property>
-   <property name="baseSize">
-    <size>
-     <width>20</width>
-     <height>0</height>
-    </size>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;
+border-radius: 5;
+background-color: rgba(170, 255, 255, 150);</string>
    </property>
-   <property name="text">
-    <string>bind ip &amp; port</string>
+   <property name="title">
+    <string>视频区域</string>
    </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>320</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/image/rc/images/webcam.png);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>20</y>
+      <width>320</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/image/rc/images/webcam.png);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>10</y>
-     <width>320</width>
-     <height>240</height>
+     <x>10</x>
+     <y>440</y>
+     <width>181</width>
+     <height>111</height>
     </rect>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;
+border-radius: 10;
+background-color: rgba(135,175,231,150);</string>
    </property>
-   <property name="text">
-    <string>TextLabel</string>
+   <property name="title">
+    <string>网络设置：</string>
    </property>
+   <widget class="QLabel" name="IP">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IP</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ipEdit">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>30</y>
+      <width>110</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255,125);
+border-radius: 2;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="PORT">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PORT</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="portEdit">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>60</y>
+      <width>110</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255,125);
+border-radius: 2;</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLineEdit" name="ipEdit">
+  <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>39</x>
-     <y>293</y>
-     <width>110</width>
-     <height>20</height>
+     <x>200</x>
+     <y>440</y>
+     <width>491</width>
+     <height>111</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QLineEdit" name="portEdit">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>293</y>
-     <width>110</width>
-     <height>20</height>
-    </rect>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;
+border-radius: 10;
+background-color: rgba(135,175,231,150);</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="IP">
-   <property name="geometry">
-    <rect>
-     <x>21</x>
-     <y>291</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
+   <property name="title">
+    <string>发送图像</string>
    </property>
-   <property name="text">
-    <string>IP</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="PORT">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>291</y>
-     <width>24</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>PORT</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>260</y>
-     <width>151</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>push me to send a image</string>
-   </property>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>151</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>20</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 2;
+background-color: rgba(0, 255, 255, 125);</string>
+    </property>
+    <property name="text">
+     <string>绑定IP和端口</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 2;
+background-color: rgba(0, 255, 255, 125);</string>
+    </property>
+    <property name="text">
+     <string>发送当前帧图像(用于测试)</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

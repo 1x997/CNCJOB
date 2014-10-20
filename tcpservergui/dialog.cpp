@@ -14,16 +14,6 @@ static  int carframe=0;
 static Mat writetoavi;
 
 
-
-//typedef struct IdSpeed
-//{
-//    int id;
-//    double speed;
-
-//}
-//IdSpeed;
-
-
 Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor(100),bgscarspeed(new PixelBasedAdaptiveSegmenter),vehicleCouting(new VehicleCouting),blobTracking(NULL),IP("192.168.1.102"),PORT(3200),videoSize(Size(320,240)),
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -37,6 +27,8 @@ Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor
     ui->ipEdit->setText(IP);
     ui->portEdit->setText(QString::number(PORT));
 
+
+    //设置背景减除算法
     ui->comboBox->addItem ("FrameDifferenceBGS");
     ui->comboBox->addItem ("AdaptiveBackgroundLearning");
     ui->comboBox->addItem ("StaticFrameDifferenceBGS");
@@ -56,8 +48,6 @@ void Dialog::getFrame(){
         showimg= data_mat.reshape(3,240);       /* reshape to 3 channel and 240 rows */
         Mat peopletestimage;
         showimg.copyTo(peopletestimage);
-        //server->img.copyTo(showimg);
-        //imshow("recv",showimg);
         setlablepic(ui->labelrecv,showimg);
         //如果设置了行人检测，同时不是很忙时候,就开始HOG检测
         if(!server->busy){
@@ -93,7 +83,7 @@ void Dialog::getFrame(){
     }
 }
 //车辆统计
-//一定要在build文件夹下建立config文件夹！！！！！
+//一定要在build文件夹下建立config文件夹
 void Dialog::getlocalFrame()
 {
     int key = 0;
@@ -102,7 +92,6 @@ void Dialog::getlocalFrame()
         imagename = imagelist.at(carframe);
     }
     Mat img_input =imread(imagename.toStdString().c_str());
-//    qDebug()<<imagename.toStdString().c_str();
     rectangle(img_input, Point( 0, 120 ), Point( 320, 170),Scalar( 0, 255, 255 ), 1, 8, 0);
     cv::Mat img_mask;
     cv::Mat img_bkgmodel;
@@ -136,9 +125,8 @@ void Dialog::getlocalFrame()
         }
     }
 
-    ////        //string <---- int
+    //string <---- int
     QString text = QString::number(carnum);
-
     int fontFace = FONT_HERSHEY_SCRIPT_SIMPLEX;
     double fontScale = 1;
     int thickness = 2;
@@ -177,9 +165,7 @@ void Dialog::on_pushButton_2_clicked()
 void Dialog::setlablepic(QLabel * lable, Mat image){
     QImage labelimage= QImage((uchar*) image.data, image.cols, image.rows, image.step, QImage::Format_RGB888).rgbSwapped();
     lable->setPixmap(QPixmap::fromImage(labelimage));
-
 }
-
 
 void Dialog::setLablePicAutoRefresh(QLabel * lable, Mat image){
     QImage labelimage= QImage((uchar*) image.data, image.cols, image.rows, image.step, QImage::Format_RGB888).rgbSwapped();
@@ -207,23 +193,20 @@ Mat Dialog::hogpeople(Mat image){
         Rect r = found[i];
         rectangle(tempimg, r.tl(), r.br(), Scalar(0, 255, 0), 2);//top left     bottom right
     }
-
     return tempimg;
-
 }
 void Dialog::init(){
-
     //dialog init
     setWindowTitle("服务器端");
     server = new MyTcpServer();
 
-    //hog 行人检测 init
+    //初始化 hog 行人检测 init
     hogflag=false;
     havepeople=false;
 
 
-    //multi object init
-    MHI_DURATION = 1;//0.5s为运动跟踪的最大持续时间
+    //初始化多目标 multi object init
+    MHI_DURATION = 1;   //0.5s为运动跟踪的最大持续时间
     N = 3;
     CONTOUR_MAX_AERA = 1000;
     buf = 0;
@@ -232,9 +215,6 @@ void Dialog::init(){
     motion = 0;
     multiflag=false;
     //初始化车辆统计
-
-
-
 
 
     carnum =0;
@@ -250,13 +230,8 @@ void Dialog::init(){
         qWarning("Cannot find the config directory");
         dir.mkdir(".");
     }
-
     //write avi to hdd
     writer.open("result.avi",CV_FOURCC('D','I','V','X'),15,videoSize);
-
-
-
-
 
 }
 //多目标检测 历史图像
@@ -276,7 +251,6 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
             buf = (IplImage**)malloc(N*sizeof(buf[0]));
             memset( buf, 0, N*sizeof(buf[0]));
         }
-
         for( i = 0; i < N; i++ )
         {
             cvReleaseImage( &buf[i] );
@@ -315,14 +289,11 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
                          cvPoint(r.x + r.width, r.y + r.height),
                          CV_RGB(255,0,0), 1, CV_AA,0);
 
-
             //写到视频文件里
-
             writetoavi = Mat(img,false);
             writer<<writetoavi;
 
             //发送消息到android
-
             emit sendtoandroid();
         }
     }
@@ -363,23 +334,19 @@ void Dialog::on_setimagedir_clicked()
                                             "/home",
                                             QFileDialog::ShowDirsOnly
                                             | QFileDialog::DontResolveSymlinks);
-
 }
 //设置车辆检测的datalist.txt文件
 void Dialog::on_setdatalist_clicked()
 {
-
     fileName = QFileDialog::getOpenFileName(this,tr("Open Image"), "/home/datalist.txt", tr("Text files (*.txt)"));
 }
 
 void Dialog::on_pushButton_4_clicked()//统计车辆开始
 {
-
     static QFile datalist(fileName);
     if (datalist.open(QIODevice::ReadOnly))
     {
         QTextStream in(&datalist);
-
         while ( !in.atEnd() )
         {
             QString line = in.readLine();
@@ -388,9 +355,8 @@ void Dialog::on_pushButton_4_clicked()//统计车辆开始
             //Mat image =imread((dir+'/'+line).toStdString().c_str());
             //setlablepic(ui->labelcar,image);
             //emit getlocalFrameSignal();
-
-            //              imshow("car",image);
-            //              waitKey(10);
+            //imshow("car",image);
+            //waitKey(10);
         }
         datalist.close();
     }
@@ -399,8 +365,6 @@ void Dialog::on_pushButton_4_clicked()//统计车辆开始
     connect(timer,SIGNAL(timeout()),this,SLOT(getlocalFrame()));
     timer->start(50);
     carframe=0;
-
-
 }
 
 
@@ -422,32 +386,26 @@ void Dialog::dropEvent(QDropEvent *e)
         foreach (const QUrl &url, e->mimeData()->urls()) {
             const QString &fileName = url.toLocalFile();
             ui->message->setText(fileName);
-
             this->AVIfilename=fileName;
 //          emit carSpeedFileNameSetSignal();
-
             timerforcarspeed = new QTimer(this);
             connect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
             timerforcarspeed->start(50);
         }
     }
 }
-
 //处理车速
 void Dialog::carSpeedFileNameSetProcess()
 {
     if(capture == NULL){
         capture = cvCaptureFromAVI(AVIfilename.toStdString().c_str());
-
      }
-
     frame_aux = cvQueryFrame(capture);
     if(frame_aux == NULL){
         disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
         return;
-     }
+    }
     frame = cvCreateImage(cvSize((int)((frame_aux->width*resize_factor)/100) , (int)((frame_aux->height*resize_factor)/100)), frame_aux->depth, frame_aux->nChannels);
-
     if(blobTracking==NULL)
          blobTracking = new BlobTracking;
 
@@ -473,55 +431,44 @@ void Dialog::carSpeedFileNameSetProcess()
         {
 //  Perform blob tracking
             blobTracking->process(img_input, img_mask, img_blob);
-            //  cv:imshow("img_blob",img_blob);
+            // cv:imshow("img_blob",img_blob);
             // Perform vehicle counting
             vehicleCouting->setInput(img_blob);
             vehicleCouting->setTracks(blobTracking->getTracks());
             vehicleCouting->process();
 
             vector<IdSpeed> idspeeds=vehicleCouting->getIdspeeds();
-
 //            IdSpeed is;
-
 
             if(idspeeds.size()>0){
                 QString carspeedlabel;
-
                 for(int i=0;i<idspeeds.size();i++){
                     IdSpeed is1=idspeeds.at(i);
                     std::cout<<"Id: "<<is1.id<<" Speed: "<<is1.speed<<std::endl;
                     std::cout<<"-------------------------------------"<<std::endl;
                     carspeedlabel +=" ID: "+QString::number(is1.id)+" SPEED: "+QString::number(is1.speed)+" ; ";
                 }
-
                 setCarSpeedLabel(ui->carspeedlabel,carspeedlabel);
-
 //                IdSpeed is1=idspeeds.at(0);
 //                std::cout<<"Id: "<<is1.id<<" Speed: "<<is1.speed<<std::endl;
             }
-
-
             Mat carspeed =vehicleCouting->getInput();
             setLablePicAutoRefresh(ui->labelcarspeed,carspeed);
 //            imshow("carspeed",carspeed);
         }
         key = cvWaitKey(1);
     }
-
 //    delete vehicleCouting;
 //    delete blobTracking;
 //    delete bgs;
 //    cvDestroyAllWindows();
 //    cvReleaseCapture(&capture);
-
-
 }
 //停止车速测量
 void Dialog::on_stopcarspeed_clicked()
 {
     this->carspeedflag=true; //stop 测量
     disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
-
 }
 
 
@@ -546,15 +493,12 @@ void Dialog::on_bindIP_clicked()
     connect(this, SIGNAL(sendtoandroid()),this, SLOT(sendtoandroidprocess()));
     ui->bindIP->setStyleSheet("background-color: red");
 
-
 }
 void Dialog::connected()
 {
 //    socket->write("some body come in");
 //    socket->close();
     qDebug()<<"connected....";
-
-
 }
 
 void Dialog::disconnected()
