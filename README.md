@@ -25,6 +25,10 @@ contact:
 UPDATA
 ---
 
+2014-10-21
+---
+增加了jpg压缩传输的客户端和服务器端
+![http://leeyoung-image.qiniudn.com/2014-10-21_00001.png](http://leeyoung-image.qiniudn.com/2014-10-21_00001.png)
 
 增加了拖拽的工程
 ---
