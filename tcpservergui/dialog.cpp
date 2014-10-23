@@ -20,15 +20,13 @@ Dialog::Dialog(QWidget *parent) :carspeedflag(false),capture(NULL),resize_factor
 {
 
     ui->setupUi(this);
-    //设置接受拖拽
+
     setAcceptDrops(true);
     init();
 
     ui->ipEdit->setText(IP);
     ui->portEdit->setText(QString::number(PORT));
 
-
-    //设置背景减除算法
     ui->comboBox->addItem ("FrameDifferenceBGS");
     ui->comboBox->addItem ("AdaptiveBackgroundLearning");
     ui->comboBox->addItem ("StaticFrameDifferenceBGS");
@@ -39,7 +37,7 @@ Dialog::~Dialog()
 {
     delete ui;
 }
-//从网络获取图像
+
 void Dialog::getFrame(){
     if(server->stable){
         QByteArray b1=server->socket->read(230400); //socket->readAll();
@@ -49,7 +47,7 @@ void Dialog::getFrame(){
         Mat peopletestimage;
         showimg.copyTo(peopletestimage);
         setlablepic(ui->labelrecv,showimg);
-        //如果设置了行人检测，同时不是很忙时候,就开始HOG检测
+
         if(!server->busy){
             server->busy=true;
             if(multiflag){
@@ -61,12 +59,29 @@ void Dialog::getFrame(){
                 setlablepic(ui->labelperson,peopleimage);
                 if(havepeople){
                     ui->label_6->setText("检测结果：有人");
+
+
+                    qDebug() << "connecting...";
+                    if(socket->isOpen()){
+                        qDebug()<<"already opened ,wait please...";
+                        return;
+                    }
+                    socket->connectToHost(IP.toStdString().c_str(), PORT);
+                    Mat sentframe = peopleimage.reshape(0,1);
+                    if(sentframe.empty()) return;
+                    std::string message((char *)sentframe.data,230400);
+                    socket->write(message.c_str(),230400);
+                    socket->close();
+                    qDebug()<<"connected and image send finished...";
+
+//                    writetoavi = Mat(peopleimage,false);
+//                    emit sendtoandroid();
                 }else{
                     ui->label_6->setText("检测结果：没人");
                 }
             }
-            server->busy=false;//解除忙状态，这样，客户端发来的图像就不会通过read掉而不保存
-            //            use for 多线程
+            server->busy=false;
+            //            use for
             //            QThread* thread = new QThread;
             //            worker = new processhogwork(showimg);
             //            worker->moveToThread(thread);
@@ -82,8 +97,7 @@ void Dialog::getFrame(){
         waitKey(2);
     }
 }
-//车辆统计
-//一定要在build文件夹下建立config文件夹
+
 void Dialog::getlocalFrame()
 {
     int key = 0;
@@ -115,12 +129,12 @@ void Dialog::getlocalFrame()
     {
         if (rowsum<40)
         {
-            carnum+=1;    //车辆宽度约为1辆车
+            carnum+=1;
         }else
         {
             if(rowsum<200)
             {
-                carnum +=2;//车辆宽度约为2辆车
+                carnum +=2;
             }
         }
     }
@@ -139,7 +153,7 @@ void Dialog::getlocalFrame()
 
 }
 
-//多线程
+
 void Dialog::showprocess()
 {
     if(!worker->resultimage.empty())
@@ -206,12 +220,12 @@ void Dialog::init(){
 
 
     //初始化多目标 multi object init
-    MHI_DURATION = 1;   //0.5s为运动跟踪的最大持续时间
+    MHI_DURATION = 1;   //0.5s
     N = 3;
     CONTOUR_MAX_AERA = 1000;
     buf = 0;
     last = 0;
-    mhi = 0; // MHI: motion history image 运动历史图像
+    mhi = 0; // MHI: motion history image
     motion = 0;
     multiflag=false;
     //初始化车辆统计
@@ -224,7 +238,7 @@ void Dialog::init(){
     ui->labelmult->setText("");
     ui->labelcar->setText("");
     ui->labelperson->setText("");
-    //mkdir config   QDir::mkdir  如果配置文件目录不存在，则先创建配置文件目录
+    //mkdir config   QDir::mkdir
     QDir dir("config");
     if (!dir.exists()){
         qWarning("Cannot find the config directory");
@@ -234,10 +248,10 @@ void Dialog::init(){
     writer.open("result.avi",CV_FOURCC('D','I','V','X'),15,videoSize);
 
 }
-//多目标检测 历史图像
+
 void Dialog::update_mhi(IplImage *img, IplImage *dst)
 {
-    double timestamp = clock()/100.; // get current time in seconds 时间戳
+    double timestamp = clock()/100.;
     CvSize size = cvSize(img->width,img->height);
     int i, idx1, idx2;
     IplImage* silh;
@@ -246,7 +260,7 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
     CvSeq *cont;
     if( !mhi || mhi->width != size.width || mhi->height != size.height )
     {
-        if( buf == 0 ) //若尚没有初始化则分配内存给他
+        if( buf == 0 )
         {
             buf = (IplImage**)malloc(N*sizeof(buf[0]));
             memset( buf, 0, N*sizeof(buf[0]));
@@ -265,16 +279,16 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
     idx1 = last;
     idx2 = (last + 1) % N; // index of (last - (N-1))th frame
     last = idx2;
-    silh = buf[idx2];//差值的指向idx2 |idx2-idx1|-->idx2(<-silh)
+    silh = buf[idx2];
     cvAbsDiff( buf[idx1], buf[idx2], silh ); // get difference between frames
-    cvThreshold( silh, silh, 50, 255, CV_THRESH_BINARY ); //threshold it,二值化
+    cvThreshold( silh, silh, 50, 255, CV_THRESH_BINARY );
     cvUpdateMotionHistory( silh, mhi, timestamp, MHI_DURATION ); // update MHI
 
-    cvConvert( mhi, dst );//将mhi转化为dst,dst=mhi
+    cvConvert( mhi, dst );
     cvSmooth( dst, dst, CV_MEDIAN, 3, 0, 0, 0 );
-    cvPyrDown( dst, pyr, CV_GAUSSIAN_5x5 );// 向下采样，去掉噪声，图像是原图像的四分之一
-    cvDilate( pyr, pyr, 0, 1 ); // 做膨胀操作，消除目标的不连续空洞
-    cvPyrUp( pyr, dst, CV_GAUSSIAN_5x5 );// 向上采样，恢复图像，图像是原图像的四倍
+    cvPyrDown( dst, pyr, CV_GAUSSIAN_5x5 );
+    cvDilate( pyr, pyr, 0, 1 );
+    cvPyrUp( pyr, dst, CV_GAUSSIAN_5x5 );
     stor = cvCreateMemStorage(0);
     cont = cvCreateSeq(CV_SEQ_ELTYPE_POINT, sizeof(CvSeq), sizeof(CvPoint) , stor);
     cvFindContours( dst, stor, &cont, sizeof(CvContour),
@@ -283,18 +297,17 @@ void Dialog::update_mhi(IplImage *img, IplImage *dst)
     for(;cont;cont = cont->h_next)
     {
         CvRect r = ((CvContour*)cont)->rect;
-        if(r.height * r.width > CONTOUR_MAX_AERA) // 面积小的方形抛弃掉
+        if(r.height * r.width > CONTOUR_MAX_AERA)
         {
             cvRectangle( img, cvPoint(r.x,r.y),
                          cvPoint(r.x + r.width, r.y + r.height),
                          CV_RGB(255,0,0), 1, CV_AA,0);
 
-            //写到视频文件里
+
             writetoavi = Mat(img,false);
             writer<<writetoavi;
 
-            //发送消息到android
-            emit sendtoandroid();
+//            emit sendtoandroid();
         }
     }
 
@@ -311,7 +324,7 @@ Mat Dialog::multitrack(Mat image)
         cvZero( motion );
         motion->origin = img->origin;
     }
-    update_mhi( img, motion);//更新历史图像
+    update_mhi( img, motion);
     Mat multiimage = Mat(img,false);
     return multiimage;
 }
@@ -321,8 +334,6 @@ void Dialog::setCarSpeedLabel(QLabel *lable, QString qstring)
     lable->setText(qstring);
 }
 
-//enable multithread
-//设置车辆检测处理的图像所在目录
 void Dialog::on_pushButton_3_clicked()
 {
     multiflag = true;
@@ -335,13 +346,13 @@ void Dialog::on_setimagedir_clicked()
                                             QFileDialog::ShowDirsOnly
                                             | QFileDialog::DontResolveSymlinks);
 }
-//设置车辆检测的datalist.txt文件
+
 void Dialog::on_setdatalist_clicked()
 {
     fileName = QFileDialog::getOpenFileName(this,tr("Open Image"), "/home/datalist.txt", tr("Text files (*.txt)"));
 }
 
-void Dialog::on_pushButton_4_clicked()//统计车辆开始
+void Dialog::on_pushButton_4_clicked()
 {
     static QFile datalist(fileName);
     if (datalist.open(QIODevice::ReadOnly))
@@ -394,7 +405,7 @@ void Dialog::dropEvent(QDropEvent *e)
         }
     }
 }
-//处理车速
+
 void Dialog::carSpeedFileNameSetProcess()
 {
     if(capture == NULL){
@@ -464,15 +475,14 @@ void Dialog::carSpeedFileNameSetProcess()
 //    cvDestroyAllWindows();
 //    cvReleaseCapture(&capture);
 }
-//停止车速测量
+
 void Dialog::on_stopcarspeed_clicked()
 {
-    this->carspeedflag=true; //stop 测量
+    this->carspeedflag=true;
     disconnect(timerforcarspeed, SIGNAL(timeout()), this, SLOT(carSpeedFileNameSetProcess()));
 }
 
 
-//绑定IP地址和端口
 void Dialog::on_bindIP_clicked()
 {
 //    ui->bindIP->isSignalConnected(QPushButton::clicked());

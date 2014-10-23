@@ -356,7 +356,8 @@ SOURCES += main.cpp\
     package_tracking/cvblob/cvtrack.cpp \
     package_analysis/VehicleCouting.cpp \
     package_bgs/pt/PBAS.cpp \
-    package_bgs/pt/PixelBasedAdaptiveSegmenter.cpp
+    package_bgs/pt/PixelBasedAdaptiveSegmenter.cpp \
+    dialog.cpp
 
 HEADERS  += dialog.h \
     mytcpserver.h \
