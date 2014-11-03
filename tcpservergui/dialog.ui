@@ -39,107 +39,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>690</y>
-     <width>231</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border: 1px solid black;
-border-radius: 10;
-background-color: rgba(135,175,231,150);</string>
-   </property>
-   <property name="title">
-    <string>发送到手机客户端：</string>
-   </property>
-   <property name="flat">
-    <bool>false</bool>
-   </property>
-   <widget class="QLabel" name="label_port">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>36</width>
-      <height>12</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 85, 255);</string>
-    </property>
-    <property name="text">
-     <string>端口：</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="portEdit">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>60</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-border: 1px solid ;
-border-radius: 5;</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="ipEdit">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>29</y>
-      <width>161</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-border: 1px solid ;
-border-radius: 4;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bindIP">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>60</y>
-      <width>101</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-border: 1px solid ;
-border-radius: 5;</string>
-    </property>
-    <property name="text">
-     <string>绑定IP和端口</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_ip">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>48</width>
-      <height>12</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 85, 255);</string>
-    </property>
-    <property name="text">
-     <string>IP地址：</string>
-    </property>
-   </widget>
-  </widget>
   <widget class="QGroupBox" name="groupBox_car_2">
    <property name="geometry">
     <rect>
@@ -376,7 +275,7 @@ border-radius: 4;</string>
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>590</y>
+     <y>690</y>
      <width>231</width>
      <height>91</height>
     </rect>
@@ -644,6 +543,107 @@ border-radius: 10;</string>
     </property>
     <property name="text">
      <string>接收到的实时画面</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>590</y>
+     <width>231</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;
+border-radius: 10;
+background-color: rgba(135,175,231,150);</string>
+   </property>
+   <property name="title">
+    <string>发送到手机客户端：</string>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+   <widget class="QLabel" name="label_port">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>36</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 85, 255);</string>
+    </property>
+    <property name="text">
+     <string>端口：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="portEdit">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>60</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 5;</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ipEdit">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>29</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 4;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bindIP">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>60</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border: 1px solid ;
+border-radius: 5;</string>
+    </property>
+    <property name="text">
+     <string>绑定IP和端口</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_ip">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>48</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 85, 255);</string>
+    </property>
+    <property name="text">
+     <string>IP地址：</string>
     </property>
    </widget>
   </widget>
