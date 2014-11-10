@@ -156,8 +156,7 @@ background-color: rgba(135,175,231,150);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>开始录制</string>
@@ -182,7 +181,7 @@ background-color: rgba(135,175,231,150);
      <rect>
       <x>10</x>
       <y>319</y>
-      <width>301</width>
+      <width>421</width>
       <height>51</height>
      </rect>
     </property>
@@ -227,8 +226,8 @@ background-color: rgba(135,175,231,150);
       <rect>
        <x>150</x>
        <y>20</y>
-       <width>54</width>
-       <height>12</height>
+       <width>181</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="text">
@@ -243,7 +242,7 @@ background-color: rgba(135,175,231,150);
      <x>0</x>
      <y>0</y>
      <width>506</width>
-     <height>17</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

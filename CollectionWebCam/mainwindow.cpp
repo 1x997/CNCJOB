@@ -6,8 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :secend(0),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-
     cap=VideoCapture(0);
     if(!cap.isOpened()){
 
@@ -18,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :secend(0),
     cap.set(CV_CAP_PROP_FRAME_WIDTH, videoSize.width);      /* set width */
     cap.set(CV_CAP_PROP_FRAME_HEIGHT, videoSize.height);     /* set height */
 //init size is 320*240
-
-
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(getlocalframe()));
@@ -57,9 +53,6 @@ void MainWindow::getlocalframe()
     ui->label->repaint();
     writer<<frame;
 
-
-
-
 }
 
 void MainWindow::setlablepic(QLabel *lable, Mat image)
@@ -88,16 +81,15 @@ void MainWindow::on_startrecord_clicked()
 
 
 
-    savefilename= dir + ui->lineEdit->text();
-//    qDebug()<<savefilename;
+    savefilename= dir +QDir::separator()+ ui->lineEdit->text();
+    qDebug()<<savefilename;
     ui->filepathname->setText(savefilename);
-    writer.open(savefilename.toStdString().c_str(),CV_FOURCC('D','I','V','X'),15,videoSize);
+    writer.open(savefilename.toStdString().c_str(),CV_FOURCC('M', 'J', 'P', 'G'),15,videoSize);//'I','Y','U','V'//'D','I','V','X'
 
 }
 
 void MainWindow::on_stoprecord_clicked()
 {
-
     disconnect(showtime,SIGNAL(timeout()),this,SLOT(on_show_time()));
     secend = 0;
     ui->label_time->setText(QString::number(secend));
@@ -109,5 +101,4 @@ void MainWindow::on_show_time()
 {
     secend++;
     ui->label_time->setText(QString::number(secend));
-
 }
