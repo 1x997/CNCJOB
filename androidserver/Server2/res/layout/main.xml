@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.server2.MainActivity"
+    tools:context="com.example.server2.MyActivity"
     tools:ignore="MergeRootFrame" >
 
     <Button
@@ -17,13 +17,17 @@
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="62dp"
         android:layout_margin="20dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="NO body"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#00CC00"
         android:textSize="30sp" />
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageView" android:layout_gravity="center_horizontal" android:background="#ffffdb83"/>
 
 </LinearLayout>
 

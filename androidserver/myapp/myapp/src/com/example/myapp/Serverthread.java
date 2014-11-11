@@ -1,5 +1,8 @@
-package com.example.server2;
+package com.example.myapp;
 
+/**
+ * Created by leeyoung on 14-11-11.
+ */
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
@@ -65,7 +68,7 @@ public class Serverthread extends Thread {
 //
 
 
-           // this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            // this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
             int imageSize=230400;//expected image size 640X480X3
             InputStream in = this.clientSocket.getInputStream();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -106,4 +109,3 @@ public class Serverthread extends Thread {
 
     }
 }
-

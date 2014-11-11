@@ -3,20 +3,17 @@ package com.example.server2;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Color;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MyActivity extends Activity {
 
 	private Handler handler;
 	public Serverthread serverthread;
@@ -50,19 +47,24 @@ public class MainActivity extends Activity {
 
 		handler=new Handler(){
 			public void handleMessage(Message msg){
-				String message=(String)msg.obj;//obj不一定是String类，可以是别的类，看用户具体的应用
-				Log.i("get from thread", message);
-				showmessage=((TextView)findViewById(R.id.message));
-				if(message.contains("empty")){
-					showmessage.setText("NO body");
-					showmessage.setTextColor(Color.parseColor("#00CC00"));
+				Bitmap message=(Bitmap)msg.obj;//
+//				Log.i("get from thread", message);
 
-				}else{
+				ImageView image=(ImageView)findViewById(R.id.imageView);
 
-					showmessage.setText("SOME BODY COME IN");
-					showmessage.setTextColor(Color.parseColor("#FF0000"));
+				image.setImageBitmap(message);
 
-				}
+//				showmessage=((TextView)findViewById(R.id.message));
+//				if(message.contains("empty")){
+//					showmessage.setText("NO body");
+//					showmessage.setTextColor(Color.parseColor("#00CC00"));
+//
+//				}else{
+//
+//					showmessage.setText("SOME BODY COME IN");
+//					showmessage.setTextColor(Color.parseColor("#FF0000"));
+//
+//				}
 
 				//  		
 
