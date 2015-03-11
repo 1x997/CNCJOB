@@ -1,7 +1,13 @@
-# the file is to record my job in cnc lab
-## note about the tcpservergui project
+# 基于Opencv 和 Qt 的智能安防系统
+## 注意
 > please create a dir named config in the path where the build exe file in and it's sup dir
+运行效果图
+---
 
+just like the image show here
+![](http://ww2.sinaimg.cn/large/6bbcb512jw1eq1mk0h5zvj20qp0n3jve.jpg)
+
+目录结构:
 qt-cmd-opencv
 ---
 
@@ -11,12 +17,6 @@ qt-dialog-opencv
 ---
 
 该为qtcreator  结合opencv 对话框版本
-
-运行效果图
----
-
-just like the image show here
-![](http://ww2.sinaimg.cn/large/6bbcb512jw1eq1mk0h5zvj20qp0n3jve.jpg)
 
 contact:
 ---
