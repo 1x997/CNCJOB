@@ -27,11 +27,6 @@ UPDATA
 增加了jpg压缩传输的客户端和服务器端
 ![http://leeyoung-image.qiniudn.com/2014-10-21_00001.png](http://leeyoung-image.qiniudn.com/2014-10-21_00001.png)
 
-增加了拖拽的工程
----
-![http://img3.picbed.org/uploads/2014/09/2014_09_16_00005.jpg](http://img3.picbed.org/uploads/2014/09/2014_09_16_00005.jpg)
-
-
-增加了拖拽播放视频
+增加了拖拽输入视频文件
 ---
 ![](http://bcs.duapp.com/yuliyang-ftp/2014-09-17_00002.jpg)
