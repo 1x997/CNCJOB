@@ -4,6 +4,10 @@
 ###运行效果图
 Run  Like This
 ![](http://ww2.sinaimg.cn/large/6bbcb512jw1eq1mk0h5zvj20qp0n3jve.jpg)
+![](http://7qnct6.com1.z0.glb.clouddn.com/car.gif)
+![](http://7qnct6.com1.z0.glb.clouddn.com/sport.gif)
+![](http://7qnct6.com1.z0.glb.clouddn.com/people.gif)
+
 
 ###功能介绍:
 * 基于HOG的行人检测
