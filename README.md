@@ -20,7 +20,7 @@ Run  Like This
  
 
 ###Contact:
-`wzyuliyang911@gmail.com`
+`wzyuliyang911@gmail.com` or `yuliyang@qq.com`
 
 
 
